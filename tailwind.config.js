@@ -7,7 +7,7 @@ module.exports = {
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
     'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}'
-	],
+  ],
   theme: {
     container: {
       center: true,
@@ -23,10 +23,7 @@ module.exports = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-        },
+        primary:"#1B8BCB",
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
@@ -73,5 +70,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"),require('flowbite/plugin')],
+  plugins: [require("tailwindcss-animate"), require('flowbite/plugin')],
 }
