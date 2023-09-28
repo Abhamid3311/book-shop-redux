@@ -9,7 +9,7 @@ export interface IBook {
     reviews: string[]
 }
 
-const bookData: IBook[] = [
+export const bookData: IBook[] = [
     {
         _id: "1",
         title: "The Lord of the Rings",
@@ -149,7 +149,7 @@ export default function AllBooks() {
 
         </div>
     )
-};
+}
 
 
 

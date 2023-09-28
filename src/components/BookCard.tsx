@@ -1,12 +1,13 @@
-import { IBook } from '@/pages/AllBooks';
-import React from 'react'
+import { useNavigate } from "react-router-dom";
 
 export default function BookCard({ book }) {
+    const navigate = useNavigate();
 
     const { _id, title, author, publicationDate, genre } = book;
 
-    const handleBookDetails = (id) => {
-        console.log(id)
+    const handleBookDetails = (id: string) => {
+        console.log(id);
+        navigate(`/book-details/${id}`)
     };
 
     return (
@@ -22,11 +23,6 @@ export default function BookCard({ book }) {
             </div>
 
             <button onClick={() => handleBookDetails(_id)} className='bg-primary text-white px-3 py-1 rounded-lg text-lg font-semibold hover:underline'>View Details</button>
-
-
-
-
-
 
         </div>
 
