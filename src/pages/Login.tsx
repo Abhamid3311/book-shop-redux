@@ -1,8 +1,38 @@
 import { Label, TextInput } from 'flowbite-react'
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.jpg';
+import { useForm } from 'react-hook-form';
+
+type FormData = {
+  email: string;
+  password: string;
+}
 
 export default function Login() {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<FormData>();
+
+
+  const onSubmit = handleSubmit((data) => {
+    console.log(data)
+    /*  postBook(data).unwrap()
+         .then((response) => {
+             console.log('Book added successfully', response);
+             toast.success("Book Added Successfully!")
+             reset();
+         })
+         .catch((error) => {
+             console.error('Error adding book', error);
+             toast.error("Book Added Failed!")
+         }); */
+
+  });
+
+
   return (
     <div className="max-w-7xl mx-auto px-5 lg:px-0 ">
       <Link to={'/'}>  <img src={logo} alt="logo" srcSet="" className="w-32  mt-2" /></Link>
@@ -10,7 +40,7 @@ export default function Login() {
 
       <div className="flex flex-col items-center justify-center max-w-3xl mx-auto h-full p-5 bg-gray-200 m-5 my-10 rounded-[5px]">
         <h1 className="text-3xl font-bold ">Login</h1>
-        <form className="flex  flex-col gap-4 w-full">
+        <form onSubmit={onSubmit} className="flex  flex-col gap-4 w-full">
           <div>
             <div className="mb-2 block">
               <Label htmlFor="email2" value="Your email" />
@@ -18,6 +48,7 @@ export default function Login() {
             <TextInput
               id="email2"
               placeholder="name@abc.com"
+              {...register("email")}
               required
               shadow
               type="email"
@@ -32,6 +63,7 @@ export default function Login() {
             <TextInput
               id="password2"
               placeholder="********"
+              {...register("password")}
               required
               shadow
               type="password"
