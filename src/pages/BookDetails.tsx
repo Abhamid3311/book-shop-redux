@@ -1,10 +1,20 @@
 import { useParams } from 'react-router-dom';
-import { bookData } from './AllBooks';
+import { useGetSingleBookQuery } from '@/redux/features/books/bookApi';
 
 const BookDetails = () => {
     const { id } = useParams();
 
-    const getBook = bookData?.find(book => book._id == id);
+    const { data: getBook, error, isLoading } = useGetSingleBookQuery(id);
+
+
+    if (isLoading) {
+        return <p>Loading...</p>
+    }
+    if (error) {
+        console.log(error)
+    }
+
+    console.log(getBook)
 
     return (
         <div className='max-w-7xl mx-auto px-5 lg:px-0'>
