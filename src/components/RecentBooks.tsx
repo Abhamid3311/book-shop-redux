@@ -11,7 +11,6 @@ export default function RecentBooks() {
         console.log(error)
     }
 
-
     return (
         <div className='bg-gray-200'>
             <div className="max-w-7xl mx-auto px-5 lg:px-5 py-10 ">

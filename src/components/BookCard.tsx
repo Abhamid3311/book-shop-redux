@@ -22,7 +22,7 @@ export default function BookCard({ book }) {
                 <p>Publication Date: {publicationDate}</p>
             </div>
 
-            <button onClick={() => handleBookDetails(_id)} className='bg-primary text-white px-3 py-1 rounded-[5px] text-sm font-semibold hover:underline'>View Details</button>
+            <button onClick={() => handleBookDetails(_id)} className='bg-primary text-white px-3 py-1 rounded-[5px] text-base font-semibold hover:underline'>View Details</button>
 
         </div>
 

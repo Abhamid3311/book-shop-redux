@@ -24,7 +24,7 @@ export function Banner() {
                 <h1 className="text-3xl lg:text-5xl font-bold ">Lorem ipsum dolor sit amet, consectetur adipisicing.</h1>
                 <p className="text-center ">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni tenetur quae dolorem alias, aliquid a perspiciatis esse mollitia dicta sequi. Saepe modi inventore ut! Quia ut aspernatur temporibus nostrum? Quo.</p>
 
-                <a href="#" className="flex items-center justify-center px-5 py-3 text-base font-medium text-center bg-primary text-white  rounded-md">Learn more </a>
+                <a href="#" className="flex items-center justify-center px-5 py-3 text-base font-medium text-center bg-primary text-white  rounded-[5px]">Learn more </a>
                     
                    
                

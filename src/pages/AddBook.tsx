@@ -40,7 +40,7 @@ export default function AddBook() {
     return (
         <div className='max-w-7xl mx-auto px-5 lg:px-0'>
             <div className='max-w-4xl mx-auto bg-gray-200 p-5 m-5'>
-                <h1 className="text-center font-bold text-xl">ADD BOOK</h1>
+                <h1 className="text-center font-bold text-xl">ADD NEW BOOK</h1>
 
                 <form onSubmit={onSubmit}>
                     <div className="relative my-3 ">
@@ -85,7 +85,7 @@ export default function AddBook() {
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className='bg-primary text-white px-3 py-1 rounded-lg text-lg font-semibold '>{isLoading ? "Adding..." : "Add"}
+                            className='bg-primary text-white px-3 py-1 rounded-[5px] text-base font-semibold '>{isLoading ? "Adding..." : "Add"}
                         </button>
                     </div>
                 </form>
