@@ -1,5 +1,6 @@
 import { useAddBookMutation } from "@/redux/features/books/bookApi";
 import { useForm } from "react-hook-form"
+import { toast } from "react-toastify";
 
 type FormData = {
     title: string;
@@ -25,10 +26,12 @@ export default function AddBook() {
         postBook(data).unwrap()
             .then((response) => {
                 console.log('Book added successfully', response);
+                toast.success("Book Added Successfully!")
                 reset();
             })
             .catch((error) => {
                 console.error('Error adding book', error);
+                toast.error("Book Added Failed!")
             });
 
     });
@@ -44,7 +47,7 @@ export default function AddBook() {
                         <input
                             type="text"
                             {...register("title")}
-                            id="title"
+                            id="title" required
                             className="block px-2.5 pb-1.5 pt-3 w-full text-sm text-gray-900 bg-white rounded-lg border-1 border-gray-300 appearance-none   focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" " />
                         <label htmlFor="title" className="absolute text-sm text-gray-500  duration-300 transform -translate-y-3 scale-75 top-1 z-10 origin-[0] bg-white  px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1">Enter Title</label>
@@ -54,7 +57,7 @@ export default function AddBook() {
                         <input
                             type="text"
                             {...register("author")}
-                            id="Author"
+                            id="Author" required
                             className="block px-2.5 pb-1.5 pt-3 w-full text-sm text-gray-900 bg-white rounded-lg border-1 border-gray-300 appearance-none   focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                             placeholder=" " />
                         <label htmlFor="Author" className="absolute text-sm text-gray-500  duration-300 transform -translate-y-3 scale-75 top-1 z-10 origin-[0] bg-white  px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1">Enter Author</label>
@@ -64,7 +67,7 @@ export default function AddBook() {
                         <input
                             type="text"
                             {...register("genre")}
-                            id="Genre"
+                            id="Genre" required
                             className="block px-2.5 pb-1.5 pt-3 w-full text-sm text-gray-900 bg-white rounded-lg border-1 border-gray-300 appearance-none   focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
                         <label htmlFor="Genre" className="absolute text-sm text-gray-500  duration-300 transform -translate-y-3 scale-75 top-1 z-10 origin-[0] bg-white  px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1">Enter Genre...</label>
                     </div>
@@ -73,7 +76,7 @@ export default function AddBook() {
                         <input
                             type="number"
                             {...register("publicationDate")}
-                            id="Date"
+                            id="Date" required
                             className="block px-2.5 pb-1.5 pt-3 w-full text-sm text-gray-900 bg-white rounded-lg border-1 border-gray-300 appearance-none   focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
                         <label htmlFor="Date" className="absolute text-sm text-gray-500  duration-300 transform -translate-y-3 scale-75 top-1 z-10 origin-[0] bg-white  px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1">Enter Publication Date...</label>
                     </div>
