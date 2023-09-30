@@ -3,7 +3,6 @@ import { useGetSingleBookQuery } from '@/redux/features/books/bookApi';
 
 const BookDetails = () => {
     const { id } = useParams();
-
     const { data: getBook, error, isLoading } = useGetSingleBookQuery(id);
 
 
@@ -14,7 +13,7 @@ const BookDetails = () => {
         console.log(error)
     }
 
-    console.log(getBook)
+    // console.log(getBook)
 
     return (
         <div className='max-w-7xl mx-auto px-5 lg:px-0'>

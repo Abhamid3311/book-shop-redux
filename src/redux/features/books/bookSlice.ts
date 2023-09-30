@@ -1,5 +1,14 @@
-import { IBook } from '@/pages/AllBooks';
 import { createSlice } from '@reduxjs/toolkit'
+
+
+export interface IBook {
+    _id: string;
+    title: string;
+    author: string;
+    genre: string;
+    publicationDate: number
+    reviews: string[]
+}
 
 interface IBooks {
     books: IBook[];
