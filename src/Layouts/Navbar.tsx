@@ -1,5 +1,4 @@
 'use client';
-
 import { Navbar } from 'flowbite-react';
 import logo from "../assets/logo.jpg";
 import { Link, useLocation } from 'react-router-dom';
@@ -8,7 +7,6 @@ import { Link, useLocation } from 'react-router-dom';
 export default function NavbarWithDropdown() {
     const location = useLocation();
     const currentPath = location.pathname;
-    console.log(currentPath)
 
 
     return (

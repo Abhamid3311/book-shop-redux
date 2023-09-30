@@ -23,13 +23,13 @@ const BookDetails = () => {
     }
 
     //Navigate To Edit Page
-    const handleEditPage = (id) => {
+    const handleEditPage = (id: number) => {
         navigate(`/edit-book/${id}`)
     }
 
 
     //Handle Book Delete
-    const handleDeleteBook = (id) => {
+    const handleDeleteBook = (id: number) => {
         deleteBook(id).unwrap()
             .then((response) => {
                 console.log('Book added successfully', response);
