@@ -11,9 +11,9 @@ export default function BookCard({ book }) {
     };
 
     return (
-        <div className="max-w-sm p-5 bg-white border border-gray-200 rounded-lg shadow hover:shadow-xl">
+        <div className="max-w-sm p-5 bg-white border border-gray-200 rounded-[5px] shadow hover:shadow-xl">
             <a href="#">
-                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{title}</h5>
+                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">{title}</h5>
             </a>
 
             <div className='my-2 text-sm lg:text-base'>
@@ -22,7 +22,7 @@ export default function BookCard({ book }) {
                 <p>Publication Date: {publicationDate}</p>
             </div>
 
-            <button onClick={() => handleBookDetails(_id)} className='bg-primary text-white px-3 py-1 rounded-lg text-lg font-semibold hover:underline'>View Details</button>
+            <button onClick={() => handleBookDetails(_id)} className='bg-primary text-white px-3 py-1 rounded-[5px] text-sm font-semibold hover:underline'>View Details</button>
 
         </div>
 

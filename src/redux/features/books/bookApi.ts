@@ -3,7 +3,8 @@ import { api } from "@/redux/api/apiSlice";
 const bookApi = api.injectEndpoints({
     endpoints: (build) => ({
         getAllBooks: build.query({
-            query: () => "/books"
+            query: () => "/books",
+            providesTags: ["books"]
         }),
         getSingleBook: build.query({
             query: (id) => `/book/${id}`
@@ -14,10 +15,18 @@ const bookApi = api.injectEndpoints({
                 method: 'POST',
                 body: data,
             }),
+            invalidatesTags: ["books"]
+        }),
+        deleteBook: build.mutation({
+            query: (id) => ({
+                url: `/book/${id}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: ["books"]
         })
     })
 })
 
 
 
-export const { useGetAllBooksQuery, useGetSingleBookQuery, useAddBookMutation } = bookApi;
+export const { useGetAllBooksQuery, useGetSingleBookQuery, useAddBookMutation, useDeleteBookMutation } = bookApi;
