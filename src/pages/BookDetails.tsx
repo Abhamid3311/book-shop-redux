@@ -33,7 +33,7 @@ const BookDetails = () => {
         deleteBook(id).unwrap()
             .then((response) => {
                 console.log('Book added successfully', response);
-                toast.success("Delete Successfully!");
+                toast.success("Deleted Successfully!");
                 navigate('/all-books')
             })
             .catch((error) => {
