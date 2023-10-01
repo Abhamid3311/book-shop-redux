@@ -14,7 +14,7 @@ export default function AllBooks() {
     //Serached Filter Functionality
     useEffect(() => {
         const filteredBooks = data?.data?.filter((book) => {
-            const lowerCaseQuery = searchQuery.toLowerCase();
+            const lowerCaseQuery = searchQuery?.toLowerCase();
             return (
                 book.title.toLowerCase().includes(lowerCaseQuery) ||
                 book.genre.toLowerCase().includes(lowerCaseQuery) ||
@@ -57,7 +57,7 @@ export default function AllBooks() {
             {/* Filtering and Other Things */}
             <div>
                 <div className="flex  items-center justify-center lg:justify-end gap-5 mb-5">
-                    <form onSubmit={handleSearchFilter}>
+                    <form >
                         <div className="w-52 lg:w-[500px]">
                             <div className="relative w-full">
                                 <input
@@ -67,7 +67,7 @@ export default function AllBooks() {
                                     className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-50 border-l-2 border border-gray-300 focus:ring-primary focus:border-primary "
                                     placeholder="Search books..." required />
 
-                                <button type="submit" className="absolute top-0 right-0 p-2.5 text-sm font-medium h-full text-white bg-primary rounded-r-lg border border-primary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-blue-300 ">
+                                <button disabled  className="absolute top-0 right-0 p-2.5 text-sm font-medium h-full text-white bg-primary rounded-r-lg border border-primary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-blue-300 ">
                                     <AiOutlineSearch className="text-2xl" />
                                     <span className="sr-only">Search</span>
                                 </button>
@@ -79,7 +79,7 @@ export default function AllBooks() {
                     <button
                         onClick={() => handleAddBookPage()}
                         className='bg-green-500 hover:bg-green-700 text-white px-3 py-2.5 rounded-[5px] text-base font-semibold '>
-                        Add New Book</button>
+                        Add New </button>
                 </div>
             </div>
 

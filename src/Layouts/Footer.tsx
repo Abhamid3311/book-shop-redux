@@ -5,7 +5,7 @@ import logo from "../assets/logo.jpg";
 
 export default function FooterWithLogo() {
     return (
-        <Footer container className='bg-[#1B8BCB] text-white'>
+        <Footer container className=' bg-white px-5'>
             <div className="w-full text-center">
                 <div className="w-full justify-between sm:flex sm:items-center sm:justify-between">
                     <Footer.Brand
@@ -13,8 +13,8 @@ export default function FooterWithLogo() {
                         href="/"
                         src={logo}
                     />
-                    <Footer.LinkGroup className='text-white'>
-                        <Footer.Link href="#">
+                    <Footer.LinkGroup className=''>
+                        <Footer.Link href="/about-us">
                             About
                         </Footer.Link>
                         <Footer.Link href="#">
@@ -23,14 +23,14 @@ export default function FooterWithLogo() {
                         <Footer.Link href="#">
                             Licensing
                         </Footer.Link>
-                        <Footer.Link href="#">
+                        <Footer.Link href="/contacts">
                             Contact
                         </Footer.Link>
                     </Footer.LinkGroup>
                 </div>
                 <Footer.Divider />
-                <Footer.Copyright className='text-white'
-                    by="Book Shop"
+                <Footer.Copyright className=''
+                    by="Book Shop || All right reserved"
                     href="#"
                     year={2023}
                 />

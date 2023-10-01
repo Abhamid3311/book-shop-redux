@@ -9,6 +9,8 @@ import NotFound from "@/pages/NotFound";
 import AddBook from "@/pages/AddBook";
 import EditBook from "@/pages/EditBook";
 import PrivateRoute from "./PrivateRoute";
+import About from "@/pages/About";
+import Contacts from "@/pages/Contacts";
 
 const routes = createBrowserRouter([
   {
@@ -22,6 +24,14 @@ const routes = createBrowserRouter([
       {
         path: '/all-books',
         element: <AllBooks />,
+      },
+      {
+        path: '/about-us',
+        element: <About />,
+      },
+      {
+        path: '/contacts',
+        element: <Contacts />,
       },
       {
         path: '/book-details/:id',
