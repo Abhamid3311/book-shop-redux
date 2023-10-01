@@ -40,11 +40,26 @@ const bookApi = api.injectEndpoints({
                 body: data,
             }),
             invalidatesTags: ["books"]
+        }),
+
+        addComment: build.mutation({
+            query: ({ bookId, data }) => ({
+                url: `/comment/${bookId}`,
+                method: "POST",
+                body: data
+            }),
+            invalidatesTags: ["comments"]
+        }),
+
+        getComments: build.query({
+            query: (id) => `/comment/${id}`,
+            providesTags: ["comments"]
         })
+
     })
 });
 
 
 
 
-export const { useGetAllBooksQuery, useGetRecentTenBooksQuery, useGetSingleBookQuery, useAddBookMutation, useDeleteBookMutation, useUpdateBookMutation } = bookApi;
+export const { useGetAllBooksQuery, useGetRecentTenBooksQuery, useGetSingleBookQuery, useAddBookMutation, useDeleteBookMutation, useUpdateBookMutation, useAddCommentMutation, useGetCommentsQuery } = bookApi;
