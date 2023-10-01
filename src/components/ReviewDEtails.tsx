@@ -3,24 +3,29 @@ import { FaUserCircle } from "react-icons/fa";
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 
-const ReviewDEtails = ({ bookId }) => {
+const ReviewDEtails = ({ bookId, user }) => {
     const [comment, setComment] = useState('')
-    const [postComment, { isLoading: isSending, isError, isSuccess }] = useAddCommentMutation();
+    const [postComment, { isLoading: isSending }] = useAddCommentMutation();
     const { data } = useGetCommentsQuery(bookId);
-    console.log(data);
+    // console.log(data);
 
-    console.log(isError, isSuccess);
+    // console.log(isError, isSuccess);
 
 
     //Handle Comment Form
     const handleCommentForm = (e) => {
         e.preventDefault();
 
+        if (!user.email) {
+            toast.info("Please login For comment Here!");
+            return
+        }
+
         const data = {
-            name: "user1",
+            name: user.email,
             comment: comment
         }
-        console.log({ bookId, data })
+        // console.log({ bookId, data })
 
         postComment({ bookId, data })
             .unwrap()

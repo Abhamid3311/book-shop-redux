@@ -1,15 +1,17 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import {  useDeleteBookMutation, useGetSingleBookQuery } from '@/redux/features/books/bookApi';
+import { useDeleteBookMutation, useGetSingleBookQuery } from '@/redux/features/books/bookApi';
 import { toast } from 'react-toastify';
 import { Button, Modal } from 'flowbite-react';
 import { useState } from 'react';
 import { HiOutlineExclamationCircle } from "react-icons/hi"
 
 import ReviewDEtails from '@/components/ReviewDEtails';
+import { useAppSelector } from '@/redux/hooks';
 
 const BookDetails = () => {
     const { id } = useParams();
     const { data: getBook, error, isLoading } = useGetSingleBookQuery(id);
+    const { user } = useAppSelector(state => state.user);
     const [deleteBook, { isLoading: isDeleteing }] = useDeleteBookMutation();
     const navigate = useNavigate();
 
@@ -55,24 +57,28 @@ const BookDetails = () => {
                         <p>Genre: {getBook?.genre}</p>
                         <p>Publication Date: {getBook?.publicationDate}</p>
 
-                        <div className="flex items-center gap-2 my-2">
-                            <button
-                                onClick={() => handleEditPage(getBook?._id)}
-                                className='bg-blue-500 hover:bg-blue-700 text-white px-3 py-1 rounded-[5px] text-base font-semibold '>Edit</button>
+                        {
+                            user.email && <div className="flex items-center gap-2 my-2">
+                                <button
+                                    onClick={() => handleEditPage(getBook?._id)}
+                                    className='bg-blue-500 hover:bg-blue-700 text-white px-3 py-1 rounded-[5px] text-base font-semibold '>Edit</button>
 
-                            <button
-                                onClick={() => {
-                                    props.setOpenModal('pop-up')
-                                }}
-                                disabled={isDeleteing}
-                                className='bg-red-500 hover:bg-red-700 text-white px-3 py-1 rounded-[5px] text-base font-semibold '>    {isDeleteing ? "Deleting..." : "Delete"}</button>
-                        </div>
+                                <button
+                                    onClick={() => {
+                                        props.setOpenModal('pop-up')
+                                    }}
+                                    disabled={isDeleteing}
+                                    className='bg-red-500 hover:bg-red-700 text-white px-3 py-1 rounded-[5px] text-base font-semibold '>    {isDeleteing ? "Deleting..." : "Delete"}</button>
+                            </div>
+                        }
+
+
                     </div>
 
                     <div className='mt-5'>
 
                         {/* Comment show section */}
-                        <ReviewDEtails bookId={id} />
+                        <ReviewDEtails bookId={id} user={user} />
 
                     </div>
                 </div>
