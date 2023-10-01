@@ -4,16 +4,20 @@ import { useNavigate } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai"
 import { Checkbox, Label } from "flowbite-react";
 import { useEffect, useState } from "react";
+import { IBook } from "@/redux/features/books/bookSlice";
 
 export default function AllBooks() {
     const [searchQuery, setSearchQuery] = useState('');
     const [searchedBook, setSearchedBook] = useState([]);
+    const [selectedGenres, setSelectedGenres] = useState([]);
+
+
     const { data, error, isLoading } = useGetAllBooksQuery(undefined);
     const navigate = useNavigate();
 
     //Serached Filter Functionality
     useEffect(() => {
-        const filteredBooks = data?.data?.filter((book) => {
+        const filteredBooks = data?.data?.filter((book: IBook) => {
             const lowerCaseQuery = searchQuery?.toLowerCase();
             return (
                 book.title.toLowerCase().includes(lowerCaseQuery) ||
@@ -24,7 +28,23 @@ export default function AllBooks() {
         });
         setSearchedBook(filteredBooks)
 
-    }, [data?.data, searchQuery])
+    }, [data?.data, searchQuery]);
+
+
+    //checkBox Filter Functinality
+    useEffect(() => {
+        const filteredBooks = data?.data?.filter((book: IBook) => {
+            const lowerCaseQuery = searchQuery?.toLowerCase();
+            const hasMatchingGenre = selectedGenres.length === 0 || selectedGenres.includes(book?.genre);
+            return (
+                hasMatchingGenre &&
+                (book.title.toLowerCase().includes(lowerCaseQuery) ||
+                    book.author.toLowerCase().includes(lowerCaseQuery) ||
+                    String(book.publicationDate).includes(lowerCaseQuery))
+            );
+        });
+        setSearchedBook(filteredBooks);
+    }, [data?.data, searchQuery, selectedGenres]);
 
 
 
@@ -39,12 +59,29 @@ export default function AllBooks() {
         navigate('/add-book')
     };
 
+
+    //Handle Search Bar Filter
     const handleSearchFilter = (e) => {
         e.preventDefault();
-        setSearchQuery(e.target.value);
+        setSearchQuery(e.target[0].value);
     };
 
-    console.log(searchedBook)
+    // console.log(searchedBook);
+
+
+
+
+    //Handle CheckBox Filter
+    const handleCheckboxChange = (event) => {
+        const { value } = event.target;
+        setSelectedGenres((prevSelectedGenres) => {
+            if (prevSelectedGenres.includes(value)) {
+                return prevSelectedGenres.filter((genre) => genre !== value);
+            } else {
+                return [...prevSelectedGenres, value];
+            }
+        });
+    };
 
 
 
@@ -54,10 +91,12 @@ export default function AllBooks() {
         <div className="max-w-7xl mx-auto px-5 lg:px-5 py-10">
             <h1 className="text-2xl lg:text-4xl font-bold text-center mb-10">Our Awesome Book Collections</h1>
 
-            {/* Filtering and Other Things */}
+
             <div>
                 <div className="flex  items-center justify-center lg:justify-end gap-5 mb-5">
-                    <form >
+
+                    {/*Search Filtering */}
+                    <form onSubmit={handleSearchFilter}>
                         <div className="w-52 lg:w-[500px]">
                             <div className="relative w-full">
                                 <input
@@ -67,7 +106,7 @@ export default function AllBooks() {
                                     className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-50 border-l-2 border border-gray-300 focus:ring-primary focus:border-primary "
                                     placeholder="Search books..." required />
 
-                                <button disabled  className="absolute top-0 right-0 p-2.5 text-sm font-medium h-full text-white bg-primary rounded-r-lg border border-primary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-blue-300 ">
+                                <button type="submit" className="absolute top-0 right-0 p-2.5 text-sm font-medium h-full text-white bg-primary rounded-r-lg border border-primary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-blue-300 ">
                                     <AiOutlineSearch className="text-2xl" />
                                     <span className="sr-only">Search</span>
                                 </button>
@@ -75,7 +114,7 @@ export default function AllBooks() {
                         </div>
                     </form>
 
-
+                    {/*ADD NEW BOOK BTN */}
                     <button
                         onClick={() => handleAddBookPage()}
                         className='bg-green-500 hover:bg-green-700 text-white px-3 py-2.5 rounded-[5px] text-base font-semibold '>
@@ -84,28 +123,62 @@ export default function AllBooks() {
             </div>
 
             <div className="flex flex-col lg:flex-row items-start gap-2 w-full">
+                {/*CHECK BOX FILTER */}
 
-                <div className="w-full lg:w-1/5">
-                    <h2 className="text-2xl font-bold text-start">Genre</h2>
-                    <div className="ml-2">
-                        <div className="flex items-center gap-2">
-                            <Checkbox id="Novel" value={"Novel"} /> <Label htmlFor="Novel">Novel</Label>
-                        </div>
+                <div className="w-full lg:w-1/5 bg-gray-200 px-2 pt-2 pb-10">
+                    <div>
+                        <h2 className="text-2xl font-bold text-start">Genre</h2>
+                        <div className="ml-2">
 
-                        <div className="flex items-center gap-2">
-                            <Checkbox id="Fantasy" value={"Fantasy"} /> <Label htmlFor="Fantasy">Fantasy</Label>
-                        </div>
 
-                        <div className="flex items-center gap-2">
-                            <Checkbox id="Sci-fi" value={"Sci-fi"} /> <Label htmlFor="Sci-fi">Sci-fi</Label>
-                        </div>
+                            <div className="flex items-center gap-2">
+                                {/* <Checkbox id="Novel" value={"Novel"} />*/}
+                                <Checkbox
+                                    id="Novel"
+                                    value="Novel"
+                                    checked={selectedGenres.includes("Novel")}
+                                    onChange={handleCheckboxChange}
+                                />
+                                <Label htmlFor="Novel">Novel</Label>
+                            </div>
 
-                        <div className="flex items-center gap-2">
-                            <Checkbox id="Fiction" value={"Fiction"} /> <Label htmlFor="Fiction">Fiction</Label>
-                        </div>
+                            <div className="flex items-center gap-2">
+                                {/* <Checkbox id="Fantasy" value={"Fantasy"} /> */}
+                                <Checkbox
+                                    id="Fantasy"
+                                    value="Fantasy"
+                                    checked={selectedGenres.includes("Fantasy")}
+                                    onChange={handleCheckboxChange}
+                                />
+                                <Label htmlFor="Fantasy">Fantasy</Label>
+                            </div>
 
-                        <div className="flex items-center gap-2">
-                            <Checkbox id="Drama" value={"Drama"} /> <Label htmlFor="Drama">Drama</Label>
+                            <div className="flex items-center gap-2">
+                                <Checkbox
+                                    id="Sci-fi"
+                                    value={"Sci-fi"}
+                                    checked={selectedGenres.includes("Sci-fi")}
+                                    onChange={handleCheckboxChange} />
+                                <Label htmlFor="Sci-fi">Sci-fi</Label>
+                            </div>
+
+                            <div className="flex items-center gap-2">
+                                <Checkbox
+                                    id="Fiction"
+                                    checked={selectedGenres.includes("Fiction")}
+                                    onChange={handleCheckboxChange}
+                                    value={"Fiction"} />
+                                <Label htmlFor="Fiction">Fiction</Label>
+                            </div>
+
+                            <div className="flex items-center gap-2">
+                                <Checkbox
+                                    id="Drama"
+                                    onChange={handleCheckboxChange}
+                                    value={"Drama"}
+                                    value={"Drama"} />
+                                <Label htmlFor="Drama">Drama</Label>
+                            </div>
                         </div>
                     </div>
                 </div>

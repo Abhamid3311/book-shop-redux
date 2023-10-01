@@ -1,6 +1,6 @@
-import React from 'react'
 import BookCard from './BookCard'
-import {  useGetRecentTenBooksQuery } from '@/redux/features/books/bookApi';
+import { useGetRecentTenBooksQuery } from '@/redux/features/books/bookApi';
+import { IBook } from '@/redux/features/books/bookSlice';
 
 export default function RecentBooks() {
     const { data: bookData, error, isLoading } = useGetRecentTenBooksQuery(undefined);
@@ -10,7 +10,7 @@ export default function RecentBooks() {
     if (error) {
         console.log(error)
     }
-    console.log(bookData)
+    // console.log(bookData)
 
     return (
         <div className='bg-gray-200'>
@@ -18,7 +18,7 @@ export default function RecentBooks() {
                 <h1 className="text-2xl lg:text-4xl font-bold text-start mb-10">Our Recent Books</h1>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
                     {
-                        bookData?.data?.map((book) => <BookCard key={book._id} book={book} />).slice(0, 10)
+                        bookData?.data?.map((book: IBook) => <BookCard key={book._id} book={book} />).slice(0, 10)
                     }
                 </div>
 
