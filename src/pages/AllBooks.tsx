@@ -11,12 +11,20 @@ export default function AllBooks() {
     const { data, error, isLoading } = useGetAllBooksQuery(undefined);
     const navigate = useNavigate();
 
-
+    //Serached Filter Functionality
     useEffect(() => {
-        const filteredBooks = data?.data?.filter(book => book?.title?.toLowerCase()?.includes(searchQuery?.toLowerCase()));
+        const filteredBooks = data?.data?.filter((book) => {
+            const lowerCaseQuery = searchQuery.toLowerCase();
+            return (
+                book.title.toLowerCase().includes(lowerCaseQuery) ||
+                book.genre.toLowerCase().includes(lowerCaseQuery) ||
+                book.author.toLowerCase().includes(lowerCaseQuery) ||
+                String(book.publicationDate).includes(lowerCaseQuery)
+            );
+        });
         setSearchedBook(filteredBooks)
 
-    }, [data.data, searchQuery])
+    }, [data?.data, searchQuery])
 
 
 
@@ -26,6 +34,7 @@ export default function AllBooks() {
     if (error) {
         console.log(error)
     }
+
     const handleAddBookPage = () => {
         navigate('/add-book')
     };
@@ -107,7 +116,8 @@ export default function AllBooks() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 w-full lg:w-4/5">
                     {
-                        data?.data?.map(book => <BookCard key={book._id} book={book} />)
+                        // data?.data?.map(book => <BookCard key={book._id} book={book} />)
+                        searchedBook?.map(book => <BookCard key={book._id} book={book} />)
                     }
                 </div>
             </div>
