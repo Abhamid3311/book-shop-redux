@@ -1,15 +1,16 @@
 import React from 'react'
 import BookCard from './BookCard'
-import { useGetAllBooksQuery } from '@/redux/features/books/bookApi';
+import {  useGetRecentTenBooksQuery } from '@/redux/features/books/bookApi';
 
 export default function RecentBooks() {
-    const { data: bookData, error, isLoading } = useGetAllBooksQuery(undefined);
+    const { data: bookData, error, isLoading } = useGetRecentTenBooksQuery(undefined);
     if (isLoading) {
         return <p>Loading...</p>
     }
     if (error) {
         console.log(error)
     }
+    console.log(bookData)
 
     return (
         <div className='bg-gray-200'>

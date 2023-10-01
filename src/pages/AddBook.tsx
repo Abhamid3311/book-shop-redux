@@ -6,7 +6,7 @@ type FormData = {
     title: string;
     author: string;
     genre: string;
-    publicationDate: number;
+    publicationDate: string;
 }
 
 export default function AddBook() {
