@@ -1,9 +1,6 @@
-import { reducer } from "@/components/ui/use-toast";
 import { auth } from "@/lib/firebase";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from '@reduxjs/toolkit';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { toast } from "react-toastify";
 
 interface IUserState {
     user: {
@@ -33,7 +30,7 @@ export const createUser = createAsyncThunk(
     'user/createUser',
     async ({ email, password }: ICredential) => {
         const data = await createUserWithEmailAndPassword(auth, email, password);
-       
+
         return data.user.email;
     });
 
