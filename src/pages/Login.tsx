@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { loginUser } from '@/redux/features/user/userSlice';
+import { toast } from "react-toastify";
 
 interface LoginFormInputs {
   email: string;
@@ -23,7 +24,8 @@ export default function Login() {
   const navigate = useNavigate()
 
   const onSubmit = (data: LoginFormInputs) => {
-    dispatch(loginUser({ email: data.email, password: data.password }))
+    dispatch(loginUser({ email: data.email, password: data.password }));
+    toast.success("Logged in Succesfully")
   };
 
   useEffect(() => {
@@ -34,7 +36,7 @@ export default function Login() {
   }, [user.email, isLoading])
 
 
- 
+
 
 
   return (

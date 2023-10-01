@@ -39,7 +39,7 @@ export default function NavbarWithDropdown() {
 
 
                 {
-                    user.email ? <Navbar.Link onClick={() => handleLogout()}>Logout</Navbar.Link> :
+                    user.email ? <Navbar.Link onClick={() => handleLogout()} className='cursor-pointer'>Logout</Navbar.Link> :
                         <>
                             <Navbar.Link active={currentPath == "/signup"}>  <Link to={"/signup"}> SignUp</Link> </Navbar.Link>
                             <Navbar.Link active={currentPath == "/login"}>  <Link to={"/login"}> Login</Link> </Navbar.Link>
