@@ -2,18 +2,33 @@ import { useAddCommentMutation, useGetCommentsQuery } from "@/redux/features/boo
 import { FaUserCircle } from "react-icons/fa";
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import { FormEvent } from "react"
 
-const ReviewDEtails = ({ bookId, user }) => {
+interface IReviewDetailsProps {
+    bookId: string;
+    user: {
+        email: string | null;
+    };
+}
+
+interface IReview {
+    name: string;
+    comment: string;
+}
+
+
+const ReviewDEtails = ({ bookId, user }: IReviewDetailsProps) => {
     const [comment, setComment] = useState('')
     const [postComment, { isLoading: isSending }] = useAddCommentMutation();
     const { data } = useGetCommentsQuery(bookId);
-    // console.log(data);
 
-    // console.log(isError, isSuccess);
+
+    console.log(bookId, user);
+
 
 
     //Handle Comment Form
-    const handleCommentForm = (e) => {
+    const handleCommentForm = (e: FormEvent) => {
         e.preventDefault();
 
         if (!user.email) {
@@ -32,7 +47,7 @@ const ReviewDEtails = ({ bookId, user }) => {
             .then((response) => {
                 console.log('Comment added successfully', response);
                 toast.success("Comment Added Successfully!");
-                e.target.reset()
+                setComment('')
             })
             .catch((error) => {
                 console.error('Error adding Comment', error);
@@ -58,7 +73,7 @@ const ReviewDEtails = ({ bookId, user }) => {
             <div className='mt-10'>
                 <h3 className='text-lg font-bold text-primary' >Comments:</h3>
                 {
-                    data?.length !== 0 && data?.map(rev => <div className='flex items-center gap-2 '>
+                    data?.length !== 0 && data?.map((rev: IReview) => <div className='flex items-center gap-2 '>
                         <FaUserCircle className="text-2xl " />
                         <div>
                             <p className="font-bold " >{rev.name}</p>

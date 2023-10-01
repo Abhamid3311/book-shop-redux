@@ -1,6 +1,19 @@
 import { useNavigate } from "react-router-dom";
 
-export default function BookCard({ book }) {
+
+export interface IBookCards {
+    book: {
+        _id: string;
+        title: string;
+        author: string;
+        publicationDate: string;
+        genre: string;
+    };
+}
+
+
+
+export default function BookCard({ book }: IBookCards) {
     const navigate = useNavigate();
 
     const { _id, title, author, publicationDate, genre } = book;

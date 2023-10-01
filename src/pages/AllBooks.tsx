@@ -3,13 +3,24 @@ import { useGetAllBooksQuery } from "@/redux/features/books/bookApi";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai"
 import { Checkbox, Label } from "flowbite-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, FormEvent, useRef } from "react";
 import { IBook } from "@/redux/features/books/bookSlice";
+
+
+export interface IBookOrginally {
+    _id: string;
+    title: string;
+    author: string;
+    genre: string;
+    publicationDate: string;
+    reviews: string[]
+}
 
 export default function AllBooks() {
     const [searchQuery, setSearchQuery] = useState('');
-    const [searchedBook, setSearchedBook] = useState([]);
-    const [selectedGenres, setSelectedGenres] = useState([]);
+    const [searchedBook, setSearchedBook] = useState<IBookOrginally[]>([]);
+    const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
+    const inputRef = useRef<HTMLInputElement | null>(null);
 
 
     const { data, error, isLoading } = useGetAllBooksQuery(undefined);
@@ -61,9 +72,12 @@ export default function AllBooks() {
 
 
     //Handle Search Bar Filter
-    const handleSearchFilter = (e) => {
+    const handleSearchFilter = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setSearchQuery(e.target[0].value);
+        // setSearchQuery(e.target[0].value);
+        if (inputRef.current) {
+            setSearchQuery(inputRef.current.value);
+        }
     };
 
     // console.log(searchedBook);
@@ -72,8 +86,8 @@ export default function AllBooks() {
 
 
     //Handle CheckBox Filter
-    const handleCheckboxChange = (event) => {
-        const { value } = event.target;
+    const handleCheckboxChange = (event: FormEvent<HTMLInputElement>) => {
+        const { value } = event.currentTarget;
         setSelectedGenres((prevSelectedGenres) => {
             if (prevSelectedGenres.includes(value)) {
                 return prevSelectedGenres.filter((genre) => genre !== value);
@@ -102,6 +116,7 @@ export default function AllBooks() {
                                 <input
                                     type="search"
                                     id="search-dropdown"
+                                    ref={inputRef}
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                     className="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-50 border-l-2 border border-gray-300 focus:ring-primary focus:border-primary "
                                     placeholder="Search books..." required />
@@ -175,7 +190,6 @@ export default function AllBooks() {
                                 <Checkbox
                                     id="Drama"
                                     onChange={handleCheckboxChange}
-                                    value={"Drama"}
                                     value={"Drama"} />
                                 <Label htmlFor="Drama">Drama</Label>
                             </div>

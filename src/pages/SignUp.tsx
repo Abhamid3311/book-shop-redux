@@ -20,7 +20,6 @@ export default function SignUp() {
     const {
         register,
         handleSubmit,
-        formState: { errors },
     } = useForm<SignupFormInputs>();
 
 

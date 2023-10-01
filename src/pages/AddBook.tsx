@@ -1,5 +1,5 @@
 import { useAddBookMutation } from "@/redux/features/books/bookApi";
-import { Label, Select } from "flowbite-react";
+import { Select } from "flowbite-react";
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify";
 
@@ -16,7 +16,6 @@ export default function AddBook() {
         register,
         handleSubmit,
         reset,
-        formState: { errors },
     } = useForm<FormData>();
 
 
@@ -64,7 +63,7 @@ export default function AddBook() {
                         <label htmlFor="Author" className="absolute text-sm text-gray-500  duration-300 transform -translate-y-3 scale-75 top-1 z-10 origin-[0] bg-white  px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-1 peer-focus:scale-75 peer-focus:-translate-y-3 left-1">Enter Author</label>
                     </div>
 
-                  
+
 
                     <div className="w-full" id="select">
 

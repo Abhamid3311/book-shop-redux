@@ -13,13 +13,12 @@ type FormData = {
 
 export default function EditBook() {
     const { id } = useParams();
-    const { data, error, isLoading } = useGetSingleBookQuery(id);
-    const [updateBook, { isLoading: isUpdating, isError, isSuccess }] = useUpdateBookMutation();
+    const { data } = useGetSingleBookQuery(id);
+    const [updateBook, { isLoading: isUpdating }] = useUpdateBookMutation();
 
     const {
         register,
         handleSubmit,
-        formState: { errors },
     } = useForm<FormData>();
 
     const [formData, setFormData] = useState<FormData>({
