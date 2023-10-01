@@ -1,37 +1,39 @@
 import { Label, TextInput } from "flowbite-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from '../assets/logo.jpg';
 import { useForm } from "react-hook-form";
+import { useAppDispatch } from "@/redux/hooks";
+import { createUser } from "@/redux/features/user/userSlice";
+import { toast } from "react-toastify";
 
 
-type FormData = {
+
+interface SignupFormInputs {
     email: string;
     password: string;
     rep_Password: string;
-} 
+}
 
 export default function SignUp() {
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate()
     const {
         register,
         handleSubmit,
-        reset,
         formState: { errors },
-    } = useForm<FormData>();
+    } = useForm<SignupFormInputs>();
 
 
     const onSubmit = handleSubmit((data) => {
-        console.log(data)
-        /*  postBook(data).unwrap()
-             .then((response) => {
-                 console.log('Book added successfully', response);
-                 toast.success("Book Added Successfully!")
-                 reset();
-             })
-             .catch((error) => {
-                 console.error('Error adding book', error);
-                 toast.error("Book Added Failed!")
-             }); */
-
+        console.log(data);
+        if (data.password === data.rep_Password) {
+            dispatch(createUser({ email: data.email, password: data.password }));
+            toast.success("User Registerd Succesfully")
+            navigate("/add-book")
+        } else {
+            toast.error("Both password must be same!")
+            return
+        }
     });
 
 
