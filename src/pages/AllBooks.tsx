@@ -22,6 +22,9 @@ export default function AllBooks() {
     const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
     const inputRef = useRef<HTMLInputElement | null>(null);
 
+    const [yearSliderValue, setYearSliderValue] = useState<number>(2023);
+
+
 
     const { data, error, isLoading } = useGetAllBooksQuery(undefined);
     const navigate = useNavigate();
@@ -43,19 +46,40 @@ export default function AllBooks() {
 
 
     //checkBox Filter Functinality
+    /*  useEffect(() => {
+         const filteredBooks = data?.data?.filter((book: IBook) => {
+             const lowerCaseQuery = searchQuery?.toLowerCase();
+             const hasMatchingGenre = selectedGenres.length === 0 || selectedGenres.includes(book?.genre);
+             return (
+                 hasMatchingGenre &&
+                 (book.title.toLowerCase().includes(lowerCaseQuery) ||
+                     book.author.toLowerCase().includes(lowerCaseQuery) ||
+                     String(book.publicationDate).includes(lowerCaseQuery))
+             );
+         });
+         setSearchedBook(filteredBooks);
+     }, [data?.data, searchQuery, selectedGenres]); */
+
+
     useEffect(() => {
         const filteredBooks = data?.data?.filter((book: IBook) => {
             const lowerCaseQuery = searchQuery?.toLowerCase();
             const hasMatchingGenre = selectedGenres.length === 0 || selectedGenres.includes(book?.genre);
+            const isWithinYearRange = parseInt(book.publicationDate) <= yearSliderValue;
             return (
                 hasMatchingGenre &&
+                isWithinYearRange &&
                 (book.title.toLowerCase().includes(lowerCaseQuery) ||
                     book.author.toLowerCase().includes(lowerCaseQuery) ||
                     String(book.publicationDate).includes(lowerCaseQuery))
             );
         });
         setSearchedBook(filteredBooks);
-    }, [data?.data, searchQuery, selectedGenres]);
+    }, [data?.data, searchQuery, selectedGenres, yearSliderValue]);
+
+
+
+
 
 
 
@@ -74,13 +98,10 @@ export default function AllBooks() {
     //Handle Search Bar Filter
     const handleSearchFilter = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // setSearchQuery(e.target[0].value);
         if (inputRef.current) {
             setSearchQuery(inputRef.current.value);
         }
     };
-
-    // console.log(searchedBook);
 
 
 
@@ -97,6 +118,15 @@ export default function AllBooks() {
         });
     };
 
+
+
+    //Handle Year Filter Slider
+    const handleYearSliderChange = (value: string) => {
+        setYearSliderValue(parseInt(value));
+    };
+
+
+    console.log(yearSliderValue);
 
 
 
@@ -141,8 +171,9 @@ export default function AllBooks() {
                 {/*CHECK BOX FILTER */}
 
                 <div className="w-full lg:w-1/5 bg-gray-200 px-2 pt-2 pb-10">
+                    <h2 className="text-2xl font-bold text-center mb-10">Filter Books</h2>
                     <div>
-                        <h2 className="text-2xl font-bold text-start">Genre</h2>
+                        <h2 className="text-lg  text-start">Genre</h2>
                         <div className="ml-2">
 
 
@@ -193,6 +224,27 @@ export default function AllBooks() {
                                     value={"Drama"} />
                                 <Label htmlFor="Drama">Drama</Label>
                             </div>
+                        </div>
+                    </div>
+
+
+                    <div>
+                        <div className="mt-8">
+                            <label htmlFor="year-slider" className="block text-base font-medium text-gray-700">
+                                Publication Year Range
+                            </label>
+                            <input
+                                type="range"
+                                id="year-slider"
+                                name="year-slider"
+                                min="1900"
+                                max="2023"
+                                step="1"
+                                value={yearSliderValue}
+                                onChange={(e) => handleYearSliderChange(e.target.value)}
+                                className="mt-1 block w-full"
+                            />
+                            <p className="text-sm mt-2 text-center">{yearSliderValue}</p>
                         </div>
                     </div>
                 </div>

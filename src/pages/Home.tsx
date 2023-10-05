@@ -6,7 +6,6 @@ export default function Home() {
     return (
         <div>
             <div className="">
-
                 <Banner />
             </div>
             <RecentBooks />
@@ -26,9 +25,6 @@ export function Banner() {
                 <p className="text-center ">Discover a captivating array of books in our catalog, ranging from thrilling adventures to insightful knowledge. Immerse yourself in a world of literary wonder and find the perfect read for every mood and interest. Your next great adventure awaits within the pages of our diverse collection.</p>
 
                 <Link to="/all-books" className="flex items-center justify-center px-5 py-3 text-base font-medium text-center bg-primary text-white  rounded-[5px]">Let's Explore </Link>
-
-
-
             </div>
 
         </div>
