@@ -1,19 +1,27 @@
 'use client';
-import { Navbar } from 'flowbite-react';
+import { Badge, Navbar } from 'flowbite-react';
 import logo from "../assets/logo.jpg";
 import { Link, useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { signOut } from 'firebase/auth';
 import { auth } from '@/lib/firebase';
 import { setUser } from '@/redux/features/user/userSlice';
+import { BsFillBookmarkHeartFill } from 'react-icons/bs';
 
 
 export default function NavbarWithDropdown() {
     const location = useLocation();
     const currentPath = location.pathname;
     const { user } = useAppSelector(state => state.user);
+    const { books } = useAppSelector(state => state.wishlist);
+   
+
     const dispatch = useAppDispatch();
 
+
+
+
+    //Handle Logout
     const handleLogout = () => {
         signOut(auth).then(() => {
             dispatch(setUser(null));
@@ -38,6 +46,11 @@ export default function NavbarWithDropdown() {
                 <Navbar.Link active={currentPath == "/add-book"}>  <Link to={"/add-book"}> Add Book</Link> </Navbar.Link>
                 <Navbar.Link active={currentPath == "/about-us"}>  <Link to={"/about-us"}> About Us</Link> </Navbar.Link>
                 <Navbar.Link active={currentPath == "/contacts"}>  <Link to={"/contacts"}> Contacts</Link> </Navbar.Link>
+                <Navbar.Link active={currentPath == "/Wishlist"}>  <Link to={"/Wishlist"}>
+                    <Badge icon={BsFillBookmarkHeartFill} color="failure" >
+                        {books?.length}
+                    </Badge>
+                </Link> </Navbar.Link>
 
 
                 {

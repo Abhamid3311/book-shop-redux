@@ -11,6 +11,7 @@ import EditBook from "@/pages/EditBook";
 import PrivateRoute from "./PrivateRoute";
 import About from "@/pages/About";
 import Contacts from "@/pages/Contacts";
+import Wishlist from "@/pages/Wishlist";
 
 const routes = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const routes = createBrowserRouter([
       {
         path: '/contacts',
         element: <Contacts />,
+      },
+      {
+        path: '/Wishlist',
+        element: <Wishlist />,
       },
       {
         path: '/book-details/:id',

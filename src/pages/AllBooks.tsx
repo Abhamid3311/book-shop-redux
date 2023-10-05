@@ -26,6 +26,8 @@ export default function AllBooks() {
 
 
 
+
+
     const { data, error, isLoading } = useGetAllBooksQuery(undefined);
     const navigate = useNavigate();
 
@@ -45,22 +47,8 @@ export default function AllBooks() {
     }, [data?.data, searchQuery]);
 
 
-    //checkBox Filter Functinality
-    /*  useEffect(() => {
-         const filteredBooks = data?.data?.filter((book: IBook) => {
-             const lowerCaseQuery = searchQuery?.toLowerCase();
-             const hasMatchingGenre = selectedGenres.length === 0 || selectedGenres.includes(book?.genre);
-             return (
-                 hasMatchingGenre &&
-                 (book.title.toLowerCase().includes(lowerCaseQuery) ||
-                     book.author.toLowerCase().includes(lowerCaseQuery) ||
-                     String(book.publicationDate).includes(lowerCaseQuery))
-             );
-         });
-         setSearchedBook(filteredBooks);
-     }, [data?.data, searchQuery, selectedGenres]); */
 
-
+    //checkBox & Year Range Filter Functinality
     useEffect(() => {
         const filteredBooks = data?.data?.filter((book: IBook) => {
             const lowerCaseQuery = searchQuery?.toLowerCase();
@@ -126,7 +114,7 @@ export default function AllBooks() {
     };
 
 
-    console.log(yearSliderValue);
+    // console.log(yearSliderValue);
 
 
 
